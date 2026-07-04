@@ -2,7 +2,17 @@
 
 import { useAppDispatch, useAppSelector } from "@/app/redux";
 import { setIsSidebarCollapsed } from "@/state";
-import { Layout, Link, LucideIcon, Menu } from "lucide-react";
+import {
+  Archive,
+  CircleDollarSign,
+  Clipboard,
+  Layout,
+  LucideIcon,
+  Menu,
+  SlidersHorizontal,
+  User,
+} from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
@@ -24,18 +34,17 @@ const SidebarLink = ({
     pathname === href || (pathname === "/" && href === "/dashboard");
 
   return (
-    <Link href={href}>
-      <div
-        className={`cursor-pointer flex items-center ${isCollapsed ? "justify-center py-4" : "justify-start px-8 py-4"}
-         hover:text-blue-500 hover:bg-blue-100 gap-3 transition-colors ${isActive ? "bg-blue-200 text-white" : ""}`}
+    <Link
+      href={href}
+      className={`flex items-center ${isCollapsed ? "justify-center py-4" : "justify-start px-8 py-4"} hover:text-blue-500 hover:bg-blue-100 gap-3 transition-colors ${isActive ? "bg-blue-200 text-white" : ""}`}
+      aria-current={isActive ? "page" : undefined}
+    >
+      <Icon className='w-6 h-6 text-gray-700' />
+      <span
+        className={`${isCollapsed ? "hidden" : "block"} font-medium text-gray-700`}
       >
-        <Icon className='w-6 h-6 !text-gray-700' />
-        <span
-          className={`${isCollapsed ? "hidden" : "block"}        font-medium text-gray-700`}
-        >
-          {label}
-        </span>
-      </div>
+        {label}
+      </span>
     </Link>
   );
 };
@@ -73,7 +82,7 @@ const Sidebar = () => {
       </div>
 
       {/* LINKS/TABS */}
-      <div className='flex-grow mt-8'>
+      <div className='grow mt-8'>
         <SidebarLink
           href='/dashboard'
           icon={Layout}
@@ -82,32 +91,38 @@ const Sidebar = () => {
         />
         <SidebarLink
           href='/inventory'
-          icon={Layout}
+          icon={Archive}
           label='Inventory'
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
-          href='/dashboard'
-          icon={Layout}
-          label='Dashboard'
+          href='/products'
+          icon={Clipboard}
+          label='Products'
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
-          href='/dashboard'
-          icon={Layout}
-          label='Dashboard'
+          href='/users'
+          icon={User}
+          label='users'
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
-          href='/dashboard'
-          icon={Layout}
-          label='Dashboard'
+          href='/settings'
+          icon={SlidersHorizontal}
+          label='Settings'
+          isCollapsed={isSidebarCollapsed}
+        />
+        <SidebarLink
+          href='/expenses'
+          icon={CircleDollarSign}
+          label='Expenses'
           isCollapsed={isSidebarCollapsed}
         />
       </div>
 
       {/* FOOTER */}
-      <div className=''>
+      <div className={`${isSidebarCollapsed ? "hidden" : "block"} mb-10`}>
         <p className='text-center text-xs text-gray-500'>
           {" "}
           &copy; 2026 TECAPRO
