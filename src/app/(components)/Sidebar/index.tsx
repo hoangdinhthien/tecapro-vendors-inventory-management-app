@@ -125,7 +125,7 @@ const Sidebar = () => {
       <div className={`${isSidebarCollapsed ? "hidden" : "block"} mb-10`}>
         <p className='text-center text-xs text-gray-500'>
           {" "}
-          &copy; 2026 TECAPRO
+          &copy; {new Date().getFullYear()} TECAPRO
         </p>
       </div>
     </div>
