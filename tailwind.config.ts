@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+// Color names we expose as CSS variables in Tailwind
 const themeColors = [
   "gray",
   "red",
@@ -11,36 +12,41 @@ const themeColors = [
   "pink",
 ] as const;
 
-const themeShades = [
-  "50",
-  "100",
-  "200",
-  "300",
-  "400",
-  "500",
-  "600",
-  "700",
-  "800",
-  "900",
-] as const;
+// We only need the shade KEYS (50..900) for building the CSS variable map
+const themeShades = {
+  "50": "900",
+  "100": "800",
+  "200": "700",
+  "300": "600",
+  "400": "500",
+  "500": "400",
+  "600": "300",
+  "700": "200",
+  "800": "100",
+  "900": "50",
+} as const;
 
 type ThemeColor = (typeof themeColors)[number];
-type ThemeShade = (typeof themeShades)[number];
+type ThemeShade = keyof typeof themeShades; // "50" | "100" | ... | "900"
 
 type ThemePalette = Record<ThemeColor, Record<ThemeShade, string>>;
 
 const buildPalette = (): ThemePalette => {
-  const palette = {} as ThemePalette;
+  const palette: Partial<Record<ThemeColor, Record<ThemeShade, string>>> = {};
+  const shades = Object.keys(themeShades) as ThemeShade[];
 
   for (const color of themeColors) {
-    palette[color] = {} as Record<ThemeShade, string>;
-
-    for (const shade of themeShades) {
-      palette[color][shade] = `var(--color-${color}-${shade})`;
+    const colorMap: Record<ThemeShade, string> = {} as Record<
+      ThemeShade,
+      string
+    >;
+    for (const shade of shades) {
+      colorMap[shade] = `var(--color-${color}-${shade})`;
     }
+    palette[color] = colorMap;
   }
 
-  return palette;
+  return palette as ThemePalette;
 };
 
 const themeColorsForTailwind = {
