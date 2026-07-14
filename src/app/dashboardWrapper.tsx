@@ -15,10 +15,12 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
     } else {
+      document.documentElement.classList.remove("dark");
       document.documentElement.classList.add("light");
     }
-  });
+  }, [isDarkMode]);
 
   return (
     <div

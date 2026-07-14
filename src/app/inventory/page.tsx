@@ -3,6 +3,7 @@
 import { useGetProductsQuery } from "@/state/api";
 import Header from "@/app/(components)/Header";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { useAppSelector } from "@/app/redux";
 
 const columns: GridColDef[] = [
   { field: "productId", headerName: "ID", width: 90 },
@@ -31,6 +32,7 @@ const columns: GridColDef[] = [
 
 const Inventory = () => {
   const { data: products, isError, isLoading } = useGetProductsQuery();
+  const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
 
   if (isLoading) {
     return <div className='py-4'>Loading...</div>;
@@ -44,6 +46,14 @@ const Inventory = () => {
     );
   }
 
+  const bg = isDarkMode ? "#1f2937" : "#ffffff";
+  const bgHeader = isDarkMode ? "#111827" : "#f3f4f6";
+  const text = isDarkMode ? "#e5e7eb" : "#374151";
+  const textStrong = isDarkMode ? "#f3f4f6" : "#111827";
+  const border = isDarkMode ? "#374151" : "#e5e7eb";
+  const rowHover = isDarkMode ? "#374151" : "#f9fafb";
+  const iconColor = isDarkMode ? "#9ca3af" : "#6b7280";
+
   return (
     <div className='flex flex-col'>
       <Header name='Inventory' />
@@ -52,7 +62,36 @@ const Inventory = () => {
         columns={columns}
         getRowId={(row) => row.productId}
         checkboxSelection
-        className='bg-white shadow rounded-lg border border-gray-200 mt-5 !text-gray-700'
+        sx={{
+          maxHeight: "70vh",
+          mt: 2.5,
+          borderRadius: 2,
+          boxShadow: 1,
+          backgroundColor: bg,
+          color: text,
+          borderColor: border,
+          "& .MuiDataGrid-columnHeader": { backgroundColor: bgHeader },
+          "& .MuiDataGrid-columnHeaderTitle": { color: textStrong, fontWeight: 600 },
+          "& .MuiDataGrid-columnSeparator": { color: border },
+          "& .MuiDataGrid-scrollbarFiller, & .MuiDataGrid-scrollbarFiller--header, & .MuiDataGrid-filler": {
+            backgroundColor: `${bgHeader} !important`,
+          },
+          "& .MuiDataGrid-row": {
+            backgroundColor: bg,
+            "&:hover": { backgroundColor: rowHover },
+          },
+          "& .MuiDataGrid-cell": { color: text, borderBottomColor: border },
+          "& .MuiDataGrid-footerContainer": {
+            backgroundColor: bgHeader,
+            color: text,
+            borderTopColor: border,
+          },
+          "& .MuiTablePagination-root, & .MuiTablePagination-selectLabel, & .MuiTablePagination-displayedRows":
+            { color: text },
+          "& .MuiTablePagination-selectIcon, & .MuiIconButton-root": { color: iconColor },
+          "& .MuiCheckbox-root": { color: iconColor },
+          "& .MuiDataGrid-virtualScroller": { backgroundColor: bg },
+        }}
       />
     </div>
   );
