@@ -91,6 +91,12 @@ const Inventory = () => {
           "& .MuiTablePagination-selectIcon, & .MuiIconButton-root": { color: iconColor },
           "& .MuiCheckbox-root": { color: iconColor },
           "& .MuiDataGrid-virtualScroller": { backgroundColor: bg },
+          "& .MuiDataGrid-row.Mui-selected": {
+            backgroundColor: isDarkMode ? "#2d4a6b !important" : "#e8f0fe !important",
+            "&:hover": {
+              backgroundColor: isDarkMode ? "#3a5a80 !important" : "#d2e3fc !important",
+            },
+          },
         }}
       />
     </div>
