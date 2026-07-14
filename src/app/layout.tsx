@@ -280,13 +280,13 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang='en'
+      lang="en"
       className={`light ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
         <style dangerouslySetInnerHTML={{ __html: themeCss }} />
       </head>
-      <body className='min-h-full flex flex-col'>
+      <body className="min-h-full flex flex-col">
         <DashboardWrapper>{children}</DashboardWrapper>
       </body>
     </html>

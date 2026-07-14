@@ -40,7 +40,7 @@ const SidebarLink = ({
       className={`flex items-center ${isCollapsed ? "justify-center py-4" : "justify-start px-8 py-4"} hover:text-blue-500 hover:bg-blue-100 gap-3 transition-colors ${isActive ? "bg-blue-200 text-white" : ""}`}
       aria-current={isActive ? "page" : undefined}
     >
-      <Icon className='w-6 h-6 text-gray-700' />
+      <Icon className="w-6 h-6 text-gray-700" />
       <span
         className={`${isCollapsed ? "hidden" : "block"} font-medium text-gray-700`}
       >
@@ -75,62 +75,62 @@ const Sidebar = () => {
           TECAPRO
         </h1>
         <button
-          className='md:hidden px-3 py-3 bg-gray-100 rounded-full hover:bg-blue-100'
+          className="md:hidden px-3 py-3 bg-gray-100 rounded-full hover:bg-blue-100"
           onClick={toggleSidebar}
         >
-          <Menu className='w-4 h-4' />
+          <Menu className="w-4 h-4" />
         </button>
       </div>
 
       {/* LINKS/TABS */}
-      <div className='grow mt-8'>
+      <div className="grow mt-8">
         <SidebarLink
-          href='/dashboard'
+          href="/dashboard"
           icon={Layout}
-          label='Dashboard'
+          label="Dashboard"
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
-          href='/inventory'
+          href="/inventory"
           icon={Archive}
-          label='Inventory'
+          label="Inventory"
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
-          href='/products'
+          href="/products"
           icon={Clipboard}
-          label='Products'
+          label="Products"
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
-          href='/users'
+          href="/users"
           icon={User}
-          label='Users'
+          label="Users"
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
-          href='/settings'
+          href="/settings"
           icon={SlidersHorizontal}
-          label='Settings'
+          label="Settings"
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
-          href='/expenses'
+          href="/expenses"
           icon={CircleDollarSign}
-          label='Expenses'
+          label="Expenses"
           isCollapsed={isSidebarCollapsed}
         />
         <SidebarLink
-          href='/vendors'
+          href="/vendors"
           icon={Handshake}
-          label='Vendors'
+          label="Vendors"
           isCollapsed={isSidebarCollapsed}
         />
       </div>
 
       {/* FOOTER */}
       <div className={`${isSidebarCollapsed ? "hidden" : "block"} mb-10`}>
-        <p className='text-center text-xs text-gray-500'>
+        <p className="text-center text-xs text-gray-500">
           {" "}
           &copy; {new Date().getFullYear()} TECAPRO
         </p>
