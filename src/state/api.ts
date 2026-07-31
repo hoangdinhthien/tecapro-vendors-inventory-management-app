@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+// PRODUCT
 export interface Product {
   productId: string;
   name: string;
@@ -7,6 +8,7 @@ export interface Product {
   rating?: number;
   stockQuantity: number;
 }
+// PRODUCT
 export interface NewProduct {
   name: string;
   price: number;
@@ -14,6 +16,7 @@ export interface NewProduct {
   stockQuantity: number;
 }
 
+// SALES SUMMARY
 export interface SalesSummary {
   salesSummaryId: string;
   totalValue: number;
@@ -21,6 +24,7 @@ export interface SalesSummary {
   date: string;
 }
 
+// PURCHASE SUMMARY
 export interface PurchaseSummary {
   purchaseSummaryId: string;
   totalPurchased: number;
@@ -28,12 +32,14 @@ export interface PurchaseSummary {
   date: string;
 }
 
+// EXPENSE SUMMARY
 export interface ExpenseSummary {
   expenseSummaryId: string;
   totalExpenses: number;
   date: string;
 }
 
+// EXPENSE BY CATEGORY SUMMARY
 export interface ExpenseByCategorySummary {
   expenseByCategorySummaryId: string;
   category: string;
@@ -41,6 +47,7 @@ export interface ExpenseByCategorySummary {
   date: string;
 }
 
+// DASHBOARD
 export interface DashboardMetrics {
   popularProducts: Product[];
   salesSummary: SalesSummary[];
@@ -49,6 +56,7 @@ export interface DashboardMetrics {
   expenseByCategorySummary: ExpenseByCategorySummary[];
 }
 
+// USERS
 export interface User {
   userId: string;
   name: string;
@@ -58,7 +66,7 @@ export interface User {
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   reducerPath: "api",
-  tagTypes: ["DashboardMetrics", "Products", "Users"],
+  tagTypes: ["DashboardMetrics", "Products", "Users", "Expenses"],
   endpoints: (build) => ({
     // dashboard api
     getDashboardMetrics: build.query<DashboardMetrics, void>({
@@ -89,6 +97,12 @@ export const api = createApi({
       query: () => "/users",
       providesTags: ["Users"],
     }),
+    // expenses api
+    // get expenses
+    getExpenseByCategory: build.query<ExpenseByCategorySummary[], void>({
+      query: () => "/expenses",
+      providesTags: ["Expenses"],
+    }),
   }),
 });
 
@@ -97,4 +111,5 @@ export const {
   useGetProductsQuery,
   useCreateProductMutation,
   useGetUsersQuery,
+  useGetExpenseByCategoryQuery,
 } = api;
